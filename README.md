@@ -40,9 +40,9 @@ The backend is built with .NET 6 and MySQL, and the frontend uses Angular 16.
 
 ## Features
 
-- Upload race results CSV (admin use).
+- Upload race results CSV/XLSX.
 - Paginated list of race results with search filters.
-- Add/edit notes for each race result.
+- Add notes for each race result.
 - Dashboard insights on jockey performance per horse.
 
 ---
