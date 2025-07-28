@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\JockeyInsight.WebApp.props" />
+</Project>

@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <div class="mt-5">
+    <h3>Best Jockeys for Your Horse</h3>
+    <div class="mb-4">
+      <label for="horseSelect" class="form-label">Select Horse:</label>
+      <select
+        id="horseSelect"
+        class="form-select"
+        [(ngModel)]="selectedHorse"
+        (change)="loadJockeyStats()"
+      >
+        <option *ngFor="let horse of horses" [value]="horse">{{ horse }}</option>
+      </select>
+    </div>
+
+    <table class="table table-bordered table-hover" *ngIf="jockeyStats.length > 0">
+      <thead class="table-secondary">
+      <tr>
+        <th>Jockey</th>
+        <th>Total Rides</th>
+        <th>Wins</th>
+        <th>Win Rate (%)</th>
+        <th>Average Position</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let stat of jockeyStats" [ngClass]="getRowClass(stat)">
+        <td>{{ stat.jockey }}</td>
+        <td>{{ stat.totalRides }}</td>
+        <td>{{ stat.wins }}</td>
+        <td>{{ stat.winRate | number:'1.0-2' }}</td>
+        <td>{{ stat.averagePosition | number:'1.0-2' }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="jockeyStats.length === 0 && selectedHorse">No jockey stats found for "{{ selectedHorse }}"</p>
+  </div>
+</div>

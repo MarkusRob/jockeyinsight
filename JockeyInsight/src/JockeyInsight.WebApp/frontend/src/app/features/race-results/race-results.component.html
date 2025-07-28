@@ -1,0 +1,78 @@
+<div class="container">
+  <h2 class="mb-4">Race Results</h2>
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <input type="text" class="form-control" placeholder="Search by Horse" [(ngModel)]="horseName" (input)="onSearchChanged()" />
+    </div>
+    <div class="col-md-3">
+      <input type="text" class="form-control" placeholder="Search by Race Course" [(ngModel)]="raceCourse" (input)="onSearchChanged()" />
+    </div>
+    <div class="col-md-3">
+      <input type="text" class="form-control" placeholder="Search by Race Name" [(ngModel)]="raceName" (input)="onSearchChanged()" />
+    </div>
+  </div>
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Distance</th>
+      <th>Distance Beaten</th>
+      <th>Time Beaten</th>
+      <th>Race</th>
+      <th>Race Course</th>
+      <th>Horse</th>
+      <th>Jockey</th>
+      <th>Trainer</th>
+      <th>Position</th>
+      <th>Note</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let result of raceResults">
+      <td>{{ result.raceDate | date }}</td>
+      <td>{{ result.raceTime }}s</td>
+      <td>{{ result.raceDistance }}m</td>
+      <td>{{ result.distanceBeaten }}m</td>
+      <td>{{ result.timeBeaten }}ms</td>
+      <td>{{ result.race }}</td>
+      <td>{{ result.raceCourse }}</td>
+      <td>{{ result.horse }}</td>
+      <td>{{ result.jockey }}</td>
+      <td>{{ result.trainer }}</td>
+      <td>
+        <span class="badge bg-success" *ngIf="result.finishingPosition === 1">
+          {{ result.finishingPosition }}
+        </span>
+        <span *ngIf="result.finishingPosition !== 1">
+          {{ result.finishingPosition }}
+        </span>
+      </td>
+      <td>
+        <span *ngIf="result.note != null; else noNote">
+          {{ result.note.body }}
+        </span>
+        <ng-template #noNote><span class="text-muted">No note</span></ng-template>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-primary" (click)="onAddEditNote(result)">
+          {{ result.note != null ? 'Edit Note' : 'Add Note' }}
+        </button>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
+<ngb-pagination
+  [(page)]="pageNumber"
+  [pageSize]="pageSize"
+  [collectionSize]="totalCount"
+  (pageChange)="onPageChange($event)"
+>
+</ngb-pagination>
+<notes
+#noteModal
+(noteSaved)="onNoteSaved($event)"
+></notes>
